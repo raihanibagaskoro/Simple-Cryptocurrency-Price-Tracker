@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  background-color: #1a2035;
+  color: #fff;
+}
+
+.center {
+  margin: auto;
+}
+
+.table-headings{
+  border-bottom: 3px solid white;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  height: 80px;
+  width: 970px;
+  background-color: #272c47;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.coin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  background-color: #1a2035;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.coin-symbol {
+  text-transform: uppercase;
+  background-color: #272c47;
+}
+
+.coin-data {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #272c47;
+}
+
+
+
+.coin-change {
+  width: 100px;
+  background-color: #272c47;
+}
+
+.coin-marketcap {
+  width: 230px;
+  background-color: #272c47;
+}
+
+.coin-price {
+  width: 110px;
+  background-color: #272c47;
+}
