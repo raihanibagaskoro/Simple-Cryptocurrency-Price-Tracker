@@ -39,7 +39,7 @@ class WatchlistController {
 
     static async deleteList(req, res, next){
         try {
-            const id = req.params.id;
+            const id = +req.params.id;
             await Watchlist.destroy({
                 where: {
                     id
