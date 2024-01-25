@@ -3,20 +3,40 @@ import '../style/Dashboard.css';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Coin from '../components/Coin';
+import { useNavigate } from 'react-router-dom';
 
 
-function Dashboard() {
+function Watchlist() {
   const [coins, setCoins] = useState([]);
+  const [ids, setIds] = useState([]);
+  const navigate = useNavigate();
+
+
 
   useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      navigate('/');
+    }
     axios
-    .get('https://api.coincap.io/v2/assets?limit=10')
+    .get('http://localhost:3001/watchlist', {
+      headers: {
+        access_token: localStorage.getItem('access_token')
+      }
+    })
+    .then(res => {
+        const coinNames = res.data.map(coin => coin.coin_name);
+        setIds(coinNames.join(','));
+    }).catch(error => console.log(error));
+    
+
+    axios
+    .get(`https://api.coincap.io/v2/assets?ids=${ids}`)
     .then(res => {
       setCoins(res.data.data);
     }).catch(error => console.log(error));
-  }
-
-  );
+    
+  }, [navigate, ids]);
 
   return (
     <div className="Dashboard">
@@ -47,4 +67,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Watchlist;

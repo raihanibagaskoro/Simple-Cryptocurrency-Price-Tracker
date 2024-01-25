@@ -21,16 +21,6 @@ class WatchlistController {
             const newList = await Watchlist.findOrCreate({
                 where: { coin_name, user_id }
             })
-            // if(newList[1] === false){
-            //     const deleteExisting = await Watchlist.destroy({
-            //         where: { coin_name, user_id }
-            //     })
-            //     if(deleteExisting){
-            //         res.status(201).json({message: "Watchlist deleted successfully"})
-            //     } else {
-            //         throw {name: "DeleteFailed"}
-            //     }
-            // }
             res.status(201).json(newList)
         } catch (error) {
             next(error)
