@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../style/Login.css';
+import '../style/Register.css';
 
-function Login() {
+function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -18,12 +18,12 @@ function Login() {
         }
 
         try {
-            const { data } = await axios.post('http://localhost:3001/login', {
+            const { data } = await axios.post('http://localhost:3001/register', {
                 username,
                 password
             });
-            localStorage.setItem('access_token', data.access_token);
-            navigate('/');
+            alert('Register success');
+            navigate('/login');
             window.location.reload();
         } catch (error) {
             console.log(error);
@@ -31,8 +31,8 @@ function Login() {
     };
 
     return (
-        <div className="login-form">
-            <h1>Login</h1>
+        <div className="register-form">
+            <h1>Register</h1>
             {error && <p className="error">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <label className='label-username'>
@@ -43,10 +43,10 @@ function Login() {
                     Password:
                     <input type="password" name="password" className="input-password" onChange={e => setPassword(e.target.value)} />
                 </label>
-                <input className='btn-submit' type="submit" value="Login" />
+                <input className='btn-submit' type="submit" value="Register" />
             </form>
         </div>
     )
 }
 
-export default Login;
+export default Register;

@@ -41,9 +41,14 @@ const Sidebar = () => {
                 )}
                 
                 {!access && (
-                    <li className="sidebar-item">
-                        <Link to="/login" className="sidebar-link">Login</Link>
-                    </li>
+                    <div>
+                        <li className="sidebar-item">
+                            <Link to="/login" className="sidebar-link">Login</Link>
+                        </li>
+                        <li className="sidebar-item">
+                            <Link to="/register" className="sidebar-link">Register</Link>
+                        </li>
+                    </div>
                 )}
                 
             </ul>    

@@ -51,6 +51,8 @@ function Watchlist() {
         </div>
       </div>
         <div className='coin-data-display'>
+            
+
           {coins.map(coin => (
             <Coin
               key={coin.id}
