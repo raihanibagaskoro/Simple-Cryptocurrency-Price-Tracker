@@ -1,6 +1,7 @@
 import '../style/Coin.css';
 import axios from 'axios';
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
+import selectedCoinContext from '../store/selectedCoinContext';
 
 const Coin = ({
     nameids,
@@ -14,10 +15,18 @@ const Coin = ({
     const formattedChange = Number(changePercent24Hr).toFixed(2);
     const formattedMarketCap = Number(marketCapUsd).toLocaleString();
 
+
     const access_token = localStorage.getItem('access_token');
 
     const [watchlist, setWatchlist] = useState([]);
     const [watchlistIds, setWatchlistIds] = useState([]);
+
+    const ctx = useContext(selectedCoinContext);
+
+    const handleSelect = () => {
+        ctx.getHistory(nameids);
+    };
+
 
     const handleRemove = () => {
         const id = watchlistIds.find(coin => coin.coin_name === nameids).id;
@@ -68,7 +77,7 @@ const Coin = ({
         <div>
             <div className="coin-container">
                 <div className="coin-row">
-                    <div className="coin">
+                    <div className="coin" onClick={handleSelect}>
                         <h1>{name}</h1>
                         <p className="coin-symbol">{symbol}</p>
                     </div>

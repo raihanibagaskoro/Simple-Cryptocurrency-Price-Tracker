@@ -1,22 +1,24 @@
 
 import '../style/Dashboard.css';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Coin from '../components/Coin';
 import Chart from '../components/Chart';
+import selectedCoinContext from '../store/selectedCoinContext'
+
+const OPTION_HOUR_MINUTE = {
+  hour: "2-digit",
+  minute: "2-digit"
+}
 
 
 function Dashboard() {
   const [coins, setCoins] = useState([]);
+  const ctx = useContext(selectedCoinContext);
+
   
-  const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    axios
-    .get('https://api.coincap.io/v2/assets/bitcoin/history?interval=d1')
-    .then(res => {
-      setHistory(res.data.data);
-    }).catch(error => console.log(error));
 
     axios
     .get('https://api.coincap.io/v2/assets?limit=20')
@@ -25,12 +27,26 @@ function Dashboard() {
     }).catch(error => console.log(error));
   });
 
+
+ 
+
+  const generateLabels = () => {
+    let options = OPTION_HOUR_MINUTE;
+    if (ctx.interval !== "1D") {
+      options = {
+        month: "short",
+        day: "numeric"
+      }
+    }
+    return ctx.history.map((item) => new Date(item.time).toLocaleDateString("en-US", options));
+  }
+
   return (
     <div className="Dashboard">
       <Chart 
-        data={coins.map(coin => coin.priceUsd)}
-        labels={history.map(his => his.time)}
-        selectedCoin={coins[0]?.name}
+        data={ctx.history.map((item) => item.priceUsd)}
+        labels={generateLabels()}
+        selectedCoin={coins.find(coin => coin.id === ctx.selected_id)}
       />
       <div className='center table-headings'>
         <div className='coin-data'>
@@ -42,6 +58,7 @@ function Dashboard() {
         </div>
       </div>
         <div className='coin-data-display'>
+
           {coins.map(coin => (
             <Coin
               key={coin.id}

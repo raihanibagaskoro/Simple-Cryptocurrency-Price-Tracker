@@ -5,7 +5,9 @@ import Login from './pages/Login';
 import Watchlist from './pages/Watchlist';
 import './style/App.css';
 
+
 function App() {
+  
   return (
     <div className="App">
       <Sidebar />

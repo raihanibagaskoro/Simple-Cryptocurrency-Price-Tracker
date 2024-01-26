@@ -10,6 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import '../style/Chart.css';
 
 ChartJS.register(
   CategoryScale,
@@ -22,6 +23,9 @@ ChartJS.register(
 );
 
 function Chart({data, labels, selectedCoin}) {
+    if (!selectedCoin) {
+        return null;
+    }
     const chartData = {
         labels: labels,
         datasets: [
@@ -74,7 +78,11 @@ function Chart({data, labels, selectedCoin}) {
     
     return (
         <div className='chart'>
-        <Line data={chartData} options={options} />
+            <div className='chart-header'>
+                <h3>{selectedCoin.name}</h3>
+                <h4>2H</h4>
+            </div>
+            <Line data={chartData} options={options} />
         </div>
     );
     }
